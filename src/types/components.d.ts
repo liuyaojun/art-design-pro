@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     ArtTable: typeof import('./../components/Table/ArtTable.vue')['default']
     BackToTop: typeof import('./../components/Widgets/BackToTop.vue')['default']
+    Base: typeof import('./../components/Upload/base.vue')['default']
     Breadcrumb: typeof import('./../components/Layout/Breadcrumb/index.vue')['default']
     CommentItem: typeof import('./../components/Pages/CommentWidget/CommentItem.vue')['default']
     CommentWidget: typeof import('./../components/Pages/CommentWidget/index.vue')['default']
@@ -41,6 +42,7 @@ declare module 'vue' {
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSegmented: typeof import('element-plus/es')['ElSegmented']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
@@ -60,6 +62,7 @@ declare module 'vue' {
     MenuLeft: typeof import('./../components/Layout/MenuLeft/index.vue')['default']
     MenuTop: typeof import('./../components/Layout/MenuTop/index.vue')['default']
     MenuTopSubmenu: typeof import('./../components/Layout/MenuTop/MenuTopSubmenu.vue')['default']
+    Monaco: typeof import('./../components/Monaco/monaco.vue')['default']
     Network: typeof import('./../components/Widgets/Network.vue')['default']
     Notice: typeof import('./../components/Layout/Notice/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -70,6 +73,11 @@ declare module 'vue' {
     TableBar: typeof import('./../components/Table/TableBar.vue')['default']
     Templae: typeof import('./../components/Templae.vue')['default']
     TopBar: typeof import('./../components/Layout/TopBar/index.vue')['default']
+    Upload: typeof import('./../components/Upload/index.vue')['default']
     WorkTab: typeof import('./../components/Layout/WorkTab/index.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vInfiniteScroll: typeof import('element-plus/es')['ElInfiniteScroll']
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

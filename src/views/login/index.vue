@@ -7,8 +7,8 @@
         </svg>
         <h1 class="title">{{ systemName }}</h1>
       </div>
-      <img class="left-bg" src="@imgs/login/lf_bg.png" />
-      <img class="left-img" src="@imgs/login/lf_icon.svg" />
+      <img class="left-bg" src="@imgs/login/lf_bg.png" alt="" />
+      <img class="left-img" src="@imgs/login/lf_icon.svg" alt="" />
     </div>
     <div class="right-wrap">
       <div class="header">
@@ -90,8 +90,7 @@
   import { ElMessage, ElNotification } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
   import { HOME_PAGE } from '@/router'
-  import { ApiStatus } from '@/utils/http/status'
-  import axios from 'axios'
+  import { UserService } from '@/api/usersApi'
   import { getCssVariable, getGreeting } from '@/utils/utils'
 
   const userStore = useUserStore()
@@ -101,8 +100,8 @@
   const showInputLabel = ref(false)
 
   const systemName = SystemInfo.name
-  const username = ref(SystemInfo.login.username)
-  const password = ref(SystemInfo.login.password)
+  const username = ref('admin')
+  const password = ref('123123')
   const loading = ref(false)
   const rememberPassword = ref(true)
   const { width } = useWindowSize()
@@ -133,31 +132,16 @@
     }
 
     try {
-      // 模拟登录
-      const res = await axios.post('/api/login', params)
-      let { code, data } = res.data
-      if (code === ApiStatus.success) {
-        userStore.setUserInfo(data)
-        userStore.setLoginStatus(true)
-        showLoginSuccessNotice()
-        router.push(HOME_PAGE)
-      } else {
-        ElMessage.error(res.data.message)
-      }
-
       // 封装 axios 登录，替换掉 .env 中的 VITE_API_URL 为你的 api 地址
-      // const res = await UserService.login(params);
-
-      // if (res.code === ApiStatus.success) {
-      //   const { token, data } = res;
-
-      //   if (token) {
-      //     const user = { ...data, token };
-      //     userStore.setUserInfo(user);
-      //     userStore.setLoginStatus(true);
-      //     router.push(HOME_PAGE); // 登录成功后跳转到主页
-      //   }
-      // }
+      const res = await UserService.login(params)
+      if (res.status) {
+        if (res.data.token) {
+          userStore.setUserInfo(res.data)
+          userStore.setLoginStatus(true)
+          userStore.saveUserData()
+          router.push(HOME_PAGE) // 登录成功后跳转到主页
+        }
+      }
     } finally {
       loading.value = false // 无论成功还是失败，都停止加载
     }

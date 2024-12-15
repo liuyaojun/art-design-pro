@@ -27,6 +27,208 @@ export const menuData: MenuListType[] = [
         title_en: 'Analysis',
         path: '/dashboard/analysis',
         showTextBadge: 'Hot'
+      },
+      {
+        id: 101,
+        title: '附件管理',
+        title_en: 'Attachments',
+        path: '/dashboard/attachments',
+        showTextBadge: 'Hot'
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: '快图系统',
+    title_en: 'Content manguage',
+    icon: '\ue7ae',
+    path: '/kuaitu',
+    children: [
+      {
+        id: 201,
+        title: '画布大小',
+        title_en: 'canvas size',
+        icon: '\ue676',
+        path: '/kuaitu/size-list',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
+      },
+      {
+        id: 201,
+        title: '模板',
+        title_en: 'Template',
+        icon: '\ue676',
+        path: '/kuaitu/template-list',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
+      },
+      {
+        id: 201,
+        title: '模板类型',
+        title_en: 'Template Type',
+        icon: '\ue676',
+        path: '/kuaitu/template-type-list',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
+      },
+      {
+        id: 201,
+        title: '素材',
+        title_en: 'material list',
+        icon: '\ue676',
+        path: '/kuaitu/material-list',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
+      },
+      {
+        id: 201,
+        title: '素材类型',
+        title_en: 'material type',
+        icon: '\ue676',
+        path: '/kuaitu/material-type-list',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
+      },
+      {
+        id: 201,
+        title: '用户模板',
+        title_en: 'Article publish',
+        path: '/article/article-publish',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
+      },
+      {
+        id: 201,
+        title: '用户素材',
+        title_en: 'Article publish',
+        path: '/article/article-publish',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
+      },
+      {
+        id: 201,
+        title: '字体',
+        title_en: 'Font',
+        icon: '\ue676',
+        path: '/kuaitu/font-list',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
+      },
+      {
+        id: 201,
+        title: '字体样式',
+        title_en: 'Article publish',
+        path: '/article/article-publish',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
+      },
+      {
+        id: 201,
+        title: '字体样式分类',
+        title_en: 'Article publish',
+        path: '/article/article-publish',
+        authList: [
+          {
+            id: 2021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 2022,
+            title: '编辑',
+            auth_mark: 'edit'
+          }
+        ]
       }
     ]
   },
@@ -444,7 +646,7 @@ export const menuData: MenuListType[] = [
     ]
   },
   {
-    id: 11,
+    id: 12,
     title: '帮助中心',
     title_en: 'Help center',
     name: '0',

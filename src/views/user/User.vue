@@ -6,12 +6,12 @@
           <img class="bg" src="https://www.qiniu.lingchen.kim/any_design_pro_user_bg.png" />
           <img class="avatar" src="@imgs/user/avatar.png" />
           <h2 class="name">{{ userInfo.username }}</h2>
-          <p class="des">Art Design Pro 是一款漂亮的后台管理系统模版.</p>
+          <p class="des">{{ userInfo.introduce || '这家伙很懒~' }}</p>
 
           <div class="outer-info">
             <div>
               <i class="iconfont">&#xe806;</i>
-              <span>576123721@mall.com</span>
+              <span>{{ userInfo.email }}</span>
             </div>
             <div>
               <i class="iconfont">&#xe7fd;</i>
@@ -153,9 +153,9 @@
   })
 
   const pwdForm = reactive({
-    password: '123456',
-    newPassword: '123456',
-    confirmPassword: '123456'
+    password: '',
+    newPassword: '',
+    confirmPassword: ''
   })
 
   const ruleFormRef = ref<FormInstance>()

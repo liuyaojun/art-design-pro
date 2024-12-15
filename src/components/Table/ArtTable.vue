@@ -12,6 +12,10 @@
       type: Array,
       default: () => []
     },
+    isloading: {
+      type: Boolean,
+      default: true
+    },
     rowKey: {
       type: String,
       default: 'id'

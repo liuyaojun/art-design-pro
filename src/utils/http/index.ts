@@ -36,7 +36,8 @@ axiosInstance.interceptors.request.use(
     if (token) {
       request.headers.set({
         'Content-Type': 'application/json',
-        Authorization: token
+        //Authorization: token,
+        token: token
       })
     }
 
@@ -52,7 +53,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error) => {
-    if (axios.isCancel(error)) {
+    /*if (axios.isCancel(error)) {
       console.log('repeated request: ' + error.message)
     } else {
       const errorMessage = error.response?.data.message
@@ -61,7 +62,33 @@ axiosInstance.interceptors.response.use(
           ? `${errorMessage} ${EmojiText[500]}`
           : `请求超时或服务器异常！${EmojiText[500]}`
       )
+    }*/
+    const { status, data } = error.response
+    let msg
+    // 验证错误
+    const info = data.errors.map((item) => `<li>${item}</li>`)
+    msg = `<ul style="line-height: 1.6">${info.join('')}</ul>`
+
+    // 401错误，Token值错误，需要重新登录
+    if (status === 401 || status === 4001) {
+      ElMessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
+        confirmButtonText: '重新登录',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 清除浏览器全部临时缓存
+        localStorage.clear()
+        sessionStorage.clear()
+        window.location.href = '/login' // 去登录页
+      })
     }
+
+    ElMessage({
+      message: msg,
+      type: 'error',
+      dangerouslyUseHTMLString: true,
+      duration: 3 * 1000
+    })
     return Promise.reject(error)
   }
 )

@@ -23,13 +23,13 @@ export default ({ mode }) => {
     base: VITE_BASE_URL,
     server: {
       port: parseInt(VITE_PORT),
-      proxy: {
+      /*proxy: {
         '/api': {
           target: VITE_API_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         }
-      },
+      },*/
       host: true
     },
     // 路径别名

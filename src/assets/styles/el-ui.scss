@@ -233,3 +233,7 @@
   padding: 30px 20px !important;
   border-radius: 10px !important;
 }
+// 解决dialog盖住message
+.el-message {
+  z-index: 30000 !important;
+}

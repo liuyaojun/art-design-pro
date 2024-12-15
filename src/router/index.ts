@@ -61,6 +61,16 @@ const routes = [
           title_en: 'Workbench',
           keepAlive: false
         }
+      },
+      {
+        path: 'attachments',
+        name: 'Attachments',
+        component: () => import(`@views/dashboard/attachments/index.vue`),
+        meta: {
+          title: '附件管理',
+          title_en: 'Attachment',
+          keepAlive: false
+        }
       }
     ]
   },
@@ -316,6 +326,64 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         component: () => import('@views/result/Fail.vue'),
         meta: {
           title: '失败页'
+        }
+      }
+    ]
+  },
+  {
+    path: '/kuaitu',
+    component: Home,
+    name: 'Kuaitu',
+    meta: {
+      title: '快图系统'
+    },
+    children: [
+      {
+        path: '/kuaitu/size-list',
+        component: () => import('@views/kuaitu/SizeList.vue'),
+        meta: {
+          title: '画布尺寸列表',
+          keepAlive: true
+        }
+      },
+      {
+        path: '/kuaitu/template-list',
+        component: () => import('@views/kuaitu/TemplateList.vue'),
+        meta: {
+          title: '模板列表',
+          keepAlive: true
+        }
+      },
+      {
+        path: '/kuaitu/template-type-list',
+        component: () => import('@views/kuaitu/TemplateTypeList.vue'),
+        meta: {
+          title: '模板分类列表',
+          keepAlive: true
+        }
+      },
+      {
+        path: '/kuaitu/material-type-list',
+        component: () => import('@views/kuaitu/MaterialTypeList.vue'),
+        meta: {
+          title: '素材分类列表',
+          keepAlive: true
+        }
+      },
+      {
+        path: '/kuaitu/material-list',
+        component: () => import('@views/kuaitu/MaterialList.vue'),
+        meta: {
+          title: '素材列表',
+          keepAlive: true
+        }
+      },
+      {
+        path: '/kuaitu/font-list',
+        component: () => import('@views/kuaitu/FontList.vue'),
+        meta: {
+          title: '字体列表',
+          keepAlive: true
         }
       }
     ]

@@ -6,7 +6,7 @@ export class UserService {
   // 登录
   static login(params: LoginParams) {
     return request.post<BaseResult>({
-      url: '/api/users/login',
+      url: '/admin/auth/sign_in',
       params
     })
   }
