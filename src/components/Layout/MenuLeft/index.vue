@@ -7,7 +7,7 @@
   >
     <div class="header" @click="toHome" :style="{ background: theme.background }">
       <svg class="svg-icon" aria-hidden="true">
-        <use xlink:href="#icon-zhaopian-copy"></use>
+        <use xlink:href="#iconsys-zhaopian-copy"></use>
       </svg>
       <p :style="{ color: theme.systemNameColor, opacity: collapse ? 0 : 1 }">
         {{ SystemInfo.name }}
@@ -44,23 +44,63 @@
   import { HOME_PAGE } from '@/router/index'
   import { useSettingStore } from '@/store/modules/setting'
   import { SystemInfo } from '@/config/setting'
-  import { MenuWidth } from '@/enums/appEnum'
+  import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
+  import { getIframeTitle, isIframe } from '@/utils/utils'
 
   const route = useRoute()
   const router = useRouter()
   const settingStore = useSettingStore()
-  const menuOpenWidth = MenuWidth.OPEN
+  const menuOpenWidth = computed(() => settingStore.getMenuOpenWidth)
   const menuCloseWidth = MenuWidth.CLOSE
 
   const collapse = computed(() => !settingStore.menuOpen)
   const uniqueOpened = computed(() => settingStore.uniqueOpened)
   const defaultOpenedsArray = ref([])
-  const menuList = computed(() => useMenuStore().getMenuList)
+
+  const menuList = computed(() => {
+    const list = useMenuStore().getMenuList
+    const isTopLeftMenu = settingStore.menuType === MenuTypeEnum.TOP_LEFT
+
+    if (isTopLeftMenu) {
+      const title = getIframeTitle()
+
+      // 处理 iframe 路径
+      if (isIframe(route.path)) {
+        return findMenuChildrenByTitle(list, title)
+      }
+
+      // 处理一级菜单
+      const currentTopPath = `/${route.path.split('/')[1]}`
+      return list.find((menu) => menu.path === currentTopPath)?.children || []
+    }
+
+    return list
+  })
+
+  const findMenuChildrenByTitle = (menuList: any[], title: string): any[] => {
+    for (const menu of menuList) {
+      if (menu.meta.title === title && menu.meta.isIframe) {
+        return menuList
+      }
+      if (menu.children) {
+        const found = findMenuChildrenByTitle(menu.children, title)
+        if (found.length > 0) {
+          return found
+        }
+      }
+    }
+    return []
+  }
 
   const routerPath = computed(() => {
     if (route.path === '/user/user') {
       // defaultOpenedsArray.value = []
+    }
+
+    // 处理 iframe 路径
+    if (isIframe(route.path)) {
+      return getIframeTitle()
     }
     return route.path
   })
@@ -75,7 +115,7 @@
 
   watch(
     () => collapse.value,
-    (collapse) => {
+    (collapse: boolean) => {
       if (!collapse) {
         showMobileModel.value = true
       }
@@ -130,11 +170,11 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './style';
+  @use './style';
 </style>
 
 <style lang="scss">
-  @import './theme';
+  @use './theme';
 
   .menu-left {
     // 展开的宽度

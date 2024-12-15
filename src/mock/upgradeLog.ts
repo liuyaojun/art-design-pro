@@ -1,5 +1,194 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.1.3',
+    title: '新增自定义圆角',
+    date: '2024-12-15',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.1.2',
+    title: '登录注册等页面样式升级',
+    date: '2024-12-15',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.1.1',
+    title: '新增文字滚动组件',
+    date: '2024-12-10',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.1.0',
+    title: '表格自定义按钮样式优化',
+    date: '2024-12-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.99',
+    title: '自定义表格按钮组件',
+    date: '2024-12-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.98',
+    title: '菜单宽度支持自定义',
+    date: '2024-12-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.97',
+    title: '修复暗黑模式水印不显示问题',
+    date: '2024-12-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.96',
+    title: '多标签支持左右滑动',
+    date: '2024-12-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.95',
+    title: '新增二维码、拖拽组件',
+    date: '2024-12-08',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.94',
+    title: '新增水印、右键菜单示例',
+    date: '2024-12-07',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.93',
+    title: '新增数字滚动、富文本编辑器示例',
+    date: '2024-12-06',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.92',
+    title: '重构：增强iframe处理和菜单交互',
+    date: '2024-12-06',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.91',
+    title: 'iframe页面跳转优化',
+    date: '2024-12-05',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.90',
+    title: '面包屑支持路由跳转',
+    date: '2024-12-05',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.89',
+    title: '新增右键菜单',
+    date: '2024-12-04',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.88',
+    title: '新增视频播放器',
+    date: '2024-12-03',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.87',
+    title: '新增Excel导入导出组件',
+    date: '2024-12-01',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.86',
+    title: '新增图像裁剪组件',
+    date: '2024-12-01',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.85',
+    title: '页面代码完善',
+    date: '2024-12-01',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.84',
+    title: '提升菜单权限代码可读性',
+    date: '2024-11-30',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.83',
+    title: '修复移端样式问题',
+    date: '2024-11-29',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.82',
+    title: '多语言支持完善',
+    date: '2024-11-29',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.81',
+    title: '新增屏幕锁定',
+    date: '2024-11-29',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.80',
+    title: '菜单数据结构重构',
+    date: '2024-11-27',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.70',
+    title: 'vue、typescript、sass 版本升级',
+    date: '2024-11-27',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.69',
+    title: '图标库重构',
+    date: '2024-11-26',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v1.0.68',
+    title: '增加混合菜单模式',
+    date: '2024-11-25',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.67',
     title: '修复表格固定列透明问题、修复el-drawer背景问题',
     date: '2024-10-30',

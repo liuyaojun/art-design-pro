@@ -46,24 +46,32 @@
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "next",
     "axios": "^1.7.5",
+    "crypto-js": "^4.2.0",
     "default-passive-events": "^2.0.0",
     "echarts": "^5.4.0",
     "element-plus": "^2.8.0",
+<<<<<<< HEAD
     "fabric": "^5.3.0",
     "fontfaceobserver": "^2.1.0",
+=======
+    "file-saver": "^2.0.5",
+>>>>>>> 7e44bc87fead3d7d9e9d4fea5d1ebb0cd7c6f772
     "highlight.js": "^11.10.0",
     "md-editor-v3": "^4.17.0",
     "mitt": "^3.0.1",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.2.2",
+    "qrcode.vue": "^3.6.0",
     "unplugin-auto-import": "^0.18.2",
     "unplugin-vue-components": "^0.27.4",
-    "vue": "^3.4.35",
+    "vue": "^3.5.12",
+    "vue-draggable-plus": "^0.6.0",
     "vue-i18n": "^9.14.0",
     "vue-router": "^4.4.2",
     "vue3-count-to": "^1.1.2",
-    "vuex": "^4.1.0"
+    "xgplayer": "^3.0.20",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.1",
@@ -88,7 +96,7 @@
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "rollup-plugin-visualizer": "^5.12.0",
-    "sass": "^1.77.8",
+    "sass": "^1.81.0",
     "stylelint": "^16.8.2",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recess-order": "^4.6.0",
@@ -96,14 +104,15 @@
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-config-standard": "^36.0.1",
     "terser": "^5.36.0",
-    "typescript": "^5.5.4",
-    "typescript-eslint": "^8.3.0",
-    "unplugin-auto-import": "^0.18.2",
+    "typescript": "~5.6.3",
+    "typescript-eslint": "^8.9.0",
+    "unplugin-auto-import": "^0.18.3",
     "unplugin-vue-components": "^0.27.4",
     "vite": "^5.4.1",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-imagemin": "^0.6.1",
     "vue-demi": "^0.14.9",
-    "vue-tsc": "^2.0.29"
+    "vue-img-cutter": "^3.0.5",
+    "vue-tsc": "~2.1.6"
   }
 }

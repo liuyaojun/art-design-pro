@@ -5,13 +5,13 @@
         <!-- 系统信息  -->
         <div class="top-header" @click="toHome" v-if="isTopMenu">
           <svg class="svg-icon2" aria-hidden="true">
-            <use xlink:href="#icon-zhaopian-copy"></use>
+            <use xlink:href="#iconsys-zhaopian-copy"></use>
           </svg>
           <p v-if="width >= 1300">{{ SystemInfo.name }}</p>
         </div>
 
         <svg class="svg-icon" aria-hidden="true" @click="toHome()">
-          <use xlink:href="#icon-zhaopian-copy"></use>
+          <use xlink:href="#iconsys-zhaopian-copy"></use>
         </svg>
         <!-- 菜单按钮 -->
         <div class="btn-box" v-if="isLeftMenu">
@@ -28,8 +28,11 @@
         <!-- 面包屑 -->
         <breadcrumb v-if="showCrumbs && isLeftMenu" />
 
-        <!-- 菜单 -->
+        <!-- 顶部菜单 -->
         <MenuTop v-if="isTopMenu" :list="menuList" :width="menuTopWidth" />
+
+        <!-- 混合菜单-顶部 -->
+        <MixedMenu v-if="isTopLeftMenu" :list="menuList" :width="menuTopWidth" />
       </div>
 
       <div class="right">
@@ -56,6 +59,12 @@
         <div class="btn-box screen-box" @click="exitScreenFun" v-else>
           <div class="btn exit-full-screen-btn">
             <i class="iconfont-sys">&#xe62d;</i>
+          </div>
+        </div>
+        <!-- 锁定屏幕 -->
+        <div class="btn-box lock-btn" @click="visibleLock">
+          <div class="btn lock-button">
+            <i class="iconfont-sys notice-btn">&#xe817;</i>
           </div>
         </div>
         <!-- 通知 -->
@@ -110,7 +119,7 @@
             trigger="hover"
             :show-arrow="false"
             popper-class="user-menu-popover"
-            popper-style="border: 1px solid var(--art-border-dashed-color); border-radius: 10px; padding: 5px 16px; 5px 16px;"
+            popper-style="border: 1px solid var(--art-border-dashed-color); border-radius: calc(var(--custom-radius) / 2 + 4px); padding: 5px 16px; 5px 16px;"
           >
             <template #reference>
               <img class="cover" src="@imgs/user/avatar.png" />
@@ -156,6 +165,7 @@
 <script setup lang="ts">
   import Breadcrumb from '../Breadcrumb/index.vue'
   import Notice from '../Notice/index.vue'
+  import MixedMenu from '../MixedMenu/index.vue'
   import { LanguageEnum, MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
@@ -191,6 +201,7 @@
   const menuType = computed(() => settingStore.menuType)
   const isLeftMenu = computed(() => menuType.value === MenuTypeEnum.LEFT)
   const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP)
+  const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
   const { t } = useI18n()
 
   const { width } = useWindowSize()
@@ -221,10 +232,10 @@
   const topBarWidth = (): string => {
     if (menuType.value === MenuTypeEnum.TOP) {
       return '100%'
-    } else if (menuType.value === MenuTypeEnum.LEFT) {
-      return menuOpen.value ? `calc(100% - ${MenuWidth.OPEN})` : `calc(100% - ${MenuWidth.CLOSE})`
     } else {
-      return '100%'
+      return menuOpen.value
+        ? `calc(100% - ${settingStore.getMenuOpenWidth})`
+        : `calc(100% - ${MenuWidth.CLOSE})`
     }
   }
 
@@ -310,6 +321,10 @@
     showNotice.value = !showNotice.value
   }
 
+  const visibleLock = () => {
+    mittBus.emit('openLockScreen')
+  }
+
   const closeUserMenu = () => {
     setTimeout(() => {
       userMenuPopover.value.hide()
@@ -318,6 +333,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './style';
-  @import './mobile';
+  @use './style';
+  @use './mobile';
 </style>

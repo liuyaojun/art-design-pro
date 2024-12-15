@@ -1,5 +1,5 @@
 <template>
-  <div class="analysis-dashboard" :style="{ paddingTop: showWorkTab ? '0' : '10px' }">
+  <div class="analysis-dashboard">
     <el-row :gutter="20">
       <el-col :xl="14" :lg="15" :xs="24">
         <TodaySales />
@@ -44,10 +44,6 @@
   import TopProducts from './widget/TopProducts.vue'
   import SalesMappingByCountry from './widget/SalesMappingByCountry.vue'
   import VolumeServiceLevel from './widget/VolumeServiceLevel.vue'
-  import { useSettingStore } from '@/store/modules/setting'
-
-  const settingStore = useSettingStore()
-  const showWorkTab = computed(() => settingStore.showWorkTab)
 </script>
 
 <style lang="scss" scoped>
@@ -56,7 +52,7 @@
 
     :deep(.custom-card) {
       background: var(--art-main-bg-color);
-      border-radius: 16px;
+      border-radius: calc(var(--custom-radius) + 4px) !important;
     }
 
     // 卡片头部

@@ -3,7 +3,8 @@
 // 菜单类型
 export enum MenuTypeEnum {
   LEFT = 'left',
-  TOP = 'top'
+  TOP = 'top',
+  TOP_LEFT = 'top-left'
 }
 
 // App theme enum
@@ -20,9 +21,8 @@ export enum MenuThemeEnum {
   DESIGN = 'design'
 }
 
-// Menu open or close width
+// Menu close width
 export enum MenuWidth {
-  OPEN = '250px',
   CLOSE = '70px'
 }
 
@@ -30,4 +30,10 @@ export enum MenuWidth {
 export enum LanguageEnum {
   ZH = 'zh',
   EN = 'en'
+}
+
+// Icon type
+export enum IconTypeEnum {
+  CLASS_NAME = 'className',
+  UNICODE = 'unicode'
 }

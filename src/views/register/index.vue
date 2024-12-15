@@ -1,80 +1,82 @@
 <template>
   <div class="login register">
     <div class="left-wrap">
-      <div class="logo">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-zhaopian-copy"></use>
-        </svg>
-        <h1 class="title">{{ systemName }}</h1>
-      </div>
-      <img class="left-bg" src="@imgs/login/lf_bg.png" />
-      <img class="left-img" src="@imgs/login/lf_icon.svg" />
+      <left-view></left-view>
     </div>
     <div class="right-wrap">
       <div class="header">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-zhaopian-copy"></use>
+          <use xlink:href="#iconsys-zhaopian-copy"></use>
         </svg>
         <h1>{{ systemName }}</h1>
       </div>
       <div class="login-wrap">
         <div class="form">
-          <h3 class="title">创建账号</h3>
-          <p class="sub-title">欢迎加入我们，请填写以下信息完成注册</p>
-          <div class="input-wrap">
-            <span class="input-label" v-if="showInputLabel">账号</span>
-            <el-input placeholder="请输入账号" size="large" v-model.trim="username" />
-          </div>
-          <div class="input-wrap">
-            <span class="input-label" v-if="showInputLabel">密码</span>
-            <el-input
-              placeholder="请输入密码"
-              size="large"
-              v-model.trim="password"
-              type="password"
-              radius="8px"
-              autocomplete="off"
-            />
-          </div>
+          <h3 class="title">{{ $t('register.title') }}</h3>
+          <p class="sub-title">{{ $t('register.subTitle') }}</p>
+          <el-form ref="formRef" :model="formData" :rules="rules" label-position="top">
+            <el-form-item prop="username">
+              <el-input
+                v-model.trim="formData.username"
+                :placeholder="$t('register.placeholder[0]')"
+                size="large"
+              />
+            </el-form-item>
 
-          <div class="input-wrap">
-            <span class="input-label" v-if="showInputLabel">确认密码</span>
-            <el-input
-              placeholder="请再次输入密码"
-              size="large"
-              v-model.trim="confirmPassword"
-              type="password"
-              radius="8px"
-              autocomplete="off"
-              @keyup.enter="register"
-            />
-          </div>
+            <el-form-item prop="password">
+              <el-input
+                v-model.trim="formData.password"
+                :placeholder="$t('register.placeholder[1]')"
+                size="large"
+                type="password"
+                autocomplete="off"
+              />
+            </el-form-item>
 
-          <div class="privacy-policy">
-            <el-checkbox v-model="rememberPassword">
-              我同意
-              <router-link to="/privacy-policy">《隐私协议》</router-link>
-            </el-checkbox>
-          </div>
+            <el-form-item prop="confirmPassword">
+              <el-input
+                v-model.trim="formData.confirmPassword"
+                :placeholder="$t('register.placeholder[2]')"
+                size="large"
+                type="password"
+                autocomplete="off"
+                @keyup.enter="register"
+              />
+            </el-form-item>
 
-          <div style="margin-top: 15px">
-            <el-button
-              class="register-btn"
-              size="large"
-              type="primary"
-              @click="register"
-              :loading="loading"
-            >
-              注册
-            </el-button>
-          </div>
+            <el-form-item prop="agreement">
+              <el-checkbox v-model="formData.agreement">
+                {{ $t('register.agreeText') }}
+                <router-link
+                  class="custom-text"
+                  style="color: var(--main-color); text-decoration: none"
+                  to="/privacy-policy"
+                  >{{ $t('register.privacyPolicy') }}</router-link
+                >
+              </el-checkbox>
+            </el-form-item>
 
-          <div class="footer">
-            <p>
-              已有账号？
-              <router-link to="/login">去登录</router-link>
-            </p>
-          </div>
+            <div style="margin-top: 15px">
+              <el-button
+                class="register-btn"
+                size="large"
+                type="primary"
+                @click="register"
+                :loading="loading"
+              >
+                {{ $t('register.submitBtnText') }}
+              </el-button>
+            </div>
+
+            <div class="footer">
+              <p>
+                {{ $t('register.hasAccount') }}
+                <router-link class="custom-text" to="/login">{{
+                  $t('register.toLogin')
+                }}</router-link>
+              </p>
+            </div>
+          </el-form>
         </div>
       </div>
     </div>
@@ -82,47 +84,88 @@
 </template>
 
 <script setup lang="ts">
+  import LeftView from '@/components/Pages/Login/LeftView.vue'
   import { SystemInfo } from '@/config/setting'
   import { ElMessage } from 'element-plus'
+  import type { FormInstance, FormRules } from 'element-plus'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   const router = useRouter()
-  const showInputLabel = ref(false)
+  const formRef = ref<FormInstance>()
 
   const systemName = SystemInfo.name
-  const username = ref('')
-  const password = ref('')
-  const confirmPassword = ref('')
   const loading = ref(false)
-  const rememberPassword = ref(false)
+
+  const formData = reactive({
+    username: '',
+    password: '',
+    confirmPassword: '',
+    agreement: false
+  })
+
+  const validatePass = (rule: any, value: string, callback: any) => {
+    if (value === '') {
+      callback(new Error(t('register.placeholder[1]')))
+    } else {
+      if (formData.confirmPassword !== '') {
+        formRef.value?.validateField('confirmPassword')
+      }
+      callback()
+    }
+  }
+
+  const validatePass2 = (rule: any, value: string, callback: any) => {
+    if (value === '') {
+      callback(new Error(t('register.rule[0]')))
+    } else if (value !== formData.password) {
+      callback(new Error(t('register.rule[1]')))
+    } else {
+      callback()
+    }
+  }
+
+  const rules = reactive<FormRules>({
+    username: [
+      { required: true, message: t('register.placeholder[0]'), trigger: 'blur' },
+      { min: 3, max: 20, message: t('register.rule[2]'), trigger: 'blur' }
+    ],
+    password: [
+      { required: true, validator: validatePass, trigger: 'blur' },
+      { min: 6, message: t('register.rule[3]'), trigger: 'blur' }
+    ],
+    confirmPassword: [{ required: true, validator: validatePass2, trigger: 'blur' }],
+    agreement: [
+      {
+        validator: (rule: any, value: boolean, callback: any) => {
+          if (!value) {
+            callback(new Error(t('register.rule[4]')))
+          } else {
+            callback()
+          }
+        },
+        trigger: 'change'
+      }
+    ]
+  })
 
   const register = async () => {
-    if (!username.value) {
-      ElMessage.error('请输入账号')
-      return
+    if (!formRef.value) return
+
+    try {
+      await formRef.value.validate()
+      loading.value = true
+
+      // 模拟注册请求
+      setTimeout(() => {
+        loading.value = false
+        ElMessage.success('注册成功')
+        toLogin()
+      }, 1000)
+    } catch (error) {
+      console.log('验证失败', error)
     }
-
-    if (!password.value) {
-      ElMessage.error('请输入密码')
-      return
-    }
-
-    if (password.value !== confirmPassword.value) {
-      ElMessage.error('两次输入的密码不一致')
-      return
-    }
-
-    if (!rememberPassword.value) {
-      ElMessage.error('请同意隐私协议')
-      return
-    }
-
-    loading.value = true
-
-    setTimeout(() => {
-      loading.value = false
-      ElMessage.success('注册成功')
-      toLogin()
-    }, 1000)
   }
 
   const toLogin = () => {
@@ -133,6 +176,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../login/index';
-  @import './index';
+  @use '../login/index' as login;
+  @use './index' as register;
 </style>

@@ -16,7 +16,7 @@
       :style="progressBarStyle"
     >
     </div>
-    <div class="dv_text" :style="textStyle" ref="messageRef">
+    <div class="dv_text custom-text" :style="textStyle" ref="messageRef">
       <slot name="textBefore" v-if="$slots.textBefore"></slot>
       {{ message }}
       <slot name="textAfter" v-if="$slots.textAfter"></slot>
@@ -64,7 +64,7 @@
     progressBarBg: '#1385FF',
     completedBg: '#57D187',
     circle: false,
-    radius: '6px',
+    radius: 'calc(var(--custom-radius) / 2 + 2px)',
     handlerIcon: '&#xea50;',
     successIcon: '&#xe621;',
     handlerBg: '#fff',
@@ -186,7 +186,7 @@
     position: relative;
     overflow: hidden;
     text-align: center;
-    background-color: #e8e8e8;
+    border: 1px solid var(--art-border-dashed-color);
 
     .dv_handler {
       position: absolute;

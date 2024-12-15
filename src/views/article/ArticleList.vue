@@ -48,10 +48,10 @@
                 <h2>{{ item.title }}</h2>
                 <div class="info">
                   <div class="text">
-                    <i class="iconfont">&#xe7c1;</i>
+                    <i class="iconfont-sys">&#xe6f7;</i>
                     <span>{{ useDateFormat(item.create_time, 'YYYY-MM-DD') }}</span>
                     <div class="line"></div>
-                    <i class="iconfont">&#xe7ae;</i>
+                    <i class="iconfont-sys">&#xe689;</i>
                     <span>{{ item.count }}</span>
                   </div>
                   <el-button v-auth="'edit'" size="small" @click.stop="toEdit(item)"
@@ -231,8 +231,10 @@
         .item {
           box-sizing: border-box;
           width: calc(20% - 20px);
-          margin: 0 20px 30px 0;
+          margin: 0 20px 20px 0;
           cursor: pointer;
+          border: 1px solid var(--art-border-color);
+          border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
           &:hover {
             .el-button {
@@ -249,7 +251,8 @@
               height: 100%;
               object-fit: cover;
               background: #f1f2f5;
-              border-radius: 6px;
+              border-radius: calc(var(--custom-radius) / 2 + 2px)
+                calc(var(--custom-radius) / 2 + 2px) 0 0;
             }
 
             .type {
@@ -265,9 +268,10 @@
           }
 
           .bottom {
+            padding: 5px 10px;
+
             h2 {
-              margin-top: 10px;
-              font-size: 18px;
+              font-size: 16px;
               font-weight: 500;
               color: #333;
 
@@ -285,15 +289,15 @@
               .text {
                 display: flex;
                 align-items: center;
+                color: var(--art-text-gray-600);
 
                 i {
                   margin-right: 5px;
                   font-size: 14px;
-                  color: #555;
                 }
 
                 span {
-                  font-size: 12px;
+                  font-size: 13px;
                 }
 
                 .line {

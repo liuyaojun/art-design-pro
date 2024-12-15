@@ -21,7 +21,7 @@ export default {
   setting: {
     menuType: {
       title: 'Menu Layout',
-      list: ['Vertical', 'Horizontal']
+      list: ['Vertical', 'Horizontal', 'Mixed']
     },
     theme: {
       title: 'Theme Style',
@@ -35,7 +35,7 @@ export default {
     },
     box: {
       title: 'Box Style',
-      list: ['Shadow', 'Border']
+      list: ['Border', 'Shadow']
     },
     basics: {
       title: 'Basic Config',
@@ -49,18 +49,21 @@ export default {
         'Show top progress bar',
         'Color Weakness Mode',
         'Auto close settings center',
-        'Page animation'
+        'Global watermark',
+        'Menu width',
+        'Page animation',
+        'Custom radius'
       ]
     }
   },
   notice: {
+    title: 'Notice',
+    btnRead: 'Mark as read',
     bar: ['Notice', 'Message', 'Todo'],
-    btn: ['Load more'],
     text: ['No']
   },
   worktab: {
-    btn: ['Close left', 'Close right', 'Close outher', 'Close All'],
-    tips: ['Slide up and down to move the tab position']
+    btn: ['Close left', 'Close right', 'Close outher', 'Close All']
   },
   console: {
     card: [
@@ -88,9 +91,64 @@ export default {
     }
   },
   login: {
-    title: 'Login',
-    label: ['Account', 'Password', 'Verification Code'],
-    btn: 'Sign in',
-    tips: ['Please input account number', 'Please input password', 'Please input verification code']
+    leftView: {
+      title: 'An Admin template focused on user experience',
+      subTitle: 'A sleek and practical interface for a great user experience'
+    },
+    title: 'Welcome back',
+    subTitle: 'Please enter your account and password to login',
+    placeholder: [
+      'Please enter your account',
+      'Please enter your password',
+      'Please slide to verify'
+    ],
+    sliderText: 'Please slide to verify',
+    sliderSuccessText: 'Verification successful',
+    rememberPwd: 'Remember password',
+    forgetPwd: 'Forget password',
+    btnText: 'Login',
+    noAccount: 'No account yet?',
+    register: 'Register'
+  },
+  forgetPassword: {
+    title: 'Forget password?',
+    subTitle: 'Enter your email to reset your password',
+    placeholder: 'Please enter your email',
+    submitBtnText: 'Submit',
+    backBtnText: 'Back'
+  },
+  register: {
+    title: 'Create account',
+    subTitle:
+      'Welcome to join us, please fill in the following information to complete the registration',
+    placeholder: [
+      'Please enter your account',
+      'Please enter your password',
+      'Please enter your password again'
+    ],
+    rule: [
+      'Please enter your password again',
+      'The two passwords are inconsistent!',
+      'The length is 3 to 20 characters',
+      'The password length cannot be less than 6 digits',
+      'Please agree to the privacy policy'
+    ],
+    agreeText: 'I agree',
+    privacyPolicy: 'Privacy policy',
+    submitBtnText: 'Register',
+    hasAccount: 'Already have an account?',
+    toLogin: 'To login'
+  },
+  lockScreen: {
+    pwdError: 'Password error',
+    lock: {
+      inputPlaceholder: 'Please input lock screen password',
+      btnText: 'Lock'
+    },
+    unlock: {
+      inputPlaceholder: 'Please input unlock password',
+      btnText: 'Unlock',
+      backBtnText: 'Back to login'
+    }
   }
 }

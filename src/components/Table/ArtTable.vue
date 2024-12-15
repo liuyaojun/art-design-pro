@@ -51,7 +51,7 @@
       }
 
       tr {
-        height: 80px !important;
+        height: 68px !important;
       }
     }
   }

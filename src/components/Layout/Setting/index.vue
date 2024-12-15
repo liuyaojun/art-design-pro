@@ -11,7 +11,7 @@
   >
     <div class="drawer-con">
       <div class="close-wrap">
-        <i class="iconfont" @click="closeDrawer">&#xe7a3;</i>
+        <i class="iconfont-sys" @click="closeDrawer">&#xe7dc;</i>
       </div>
 
       <p class="title">{{ $t('setting.theme.title') }}</p>
@@ -47,7 +47,79 @@
         </div>
       </div>
 
-      <p class="title" style="margin-top: 30px">{{ $t('setting.menu.title') }}</p>
+      <div v-if="width > 1000">
+        <!-- 菜单布局 -->
+        <p class="title" style="margin-top: 30px">{{ $t('setting.menuType.title') }}</p>
+        <div class="menu-type">
+          <div class="menu-type-wrap">
+            <!-- 左侧菜单 -->
+            <div class="item">
+              <div
+                class="box bl"
+                :class="{ 'is-active': isLeftMenu }"
+                @click="setMenuType(MenuTypeEnum.LEFT)"
+              >
+                <div class="bl-menu">
+                  <div class="line" v-for="i in 6" :key="i"></div>
+                </div>
+                <div class="bl-content">
+                  <div class="header"></div>
+                  <div class="row1">
+                    <div v-for="i in 2" :key="i"></div>
+                  </div>
+                  <div class="row2"></div>
+                </div>
+              </div>
+              <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
+            </div>
+            <!-- 顶部菜单 -->
+            <div class="item">
+              <div
+                class="box bt"
+                :class="{ 'is-active': isTopMenu }"
+                @click="setMenuType(MenuTypeEnum.TOP)"
+              >
+                <div class="bt-menu">
+                  <div class="line" v-for="i in 6" :key="i"></div>
+                </div>
+                <div class="bl-content">
+                  <div class="row1">
+                    <div v-for="i in 2" :key="i"></div>
+                  </div>
+                  <div class="row2"></div>
+                </div>
+              </div>
+              <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
+            </div>
+            <!-- 混合菜单 -->
+            <div class="item">
+              <div
+                class="box tl"
+                :class="{ 'is-active': isTopLeftMenu }"
+                @click="setMenuType(MenuTypeEnum.TOP_LEFT)"
+              >
+                <div class="tl-left">
+                  <div class="line" v-for="i in 6" :key="i"></div>
+                </div>
+                <div class="tl-right">
+                  <div class="bt-menu">
+                    <div class="line" v-for="i in 6" :key="i"></div>
+                  </div>
+                  <div class="bl-content">
+                    <div class="row1">
+                      <div v-for="i in 2" :key="i"></div>
+                    </div>
+                    <div class="row2"></div>
+                  </div>
+                </div>
+              </div>
+              <span class="name">{{ $t('setting.menuType.list[2]') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="title" style="margin-top: 20px">{{ $t('setting.menu.title') }}</p>
       <div class="menu-theme-wrap">
         <div>
           <div
@@ -80,52 +152,6 @@
         </div>
       </div>
 
-      <div v-if="width > 1000">
-        <!-- 菜单布局 -->
-        <p class="title" style="margin-top: 10px">{{ $t('setting.menuType.title') }}</p>
-        <div class="menu-type">
-          <div class="menu-type-wrap">
-            <div class="item">
-              <div
-                class="box bl"
-                :class="{ 'is-active': isLeftMenu }"
-                @click="setMenuType(MenuTypeEnum.LEFT)"
-              >
-                <div class="bl-menu">
-                  <div class="line" v-for="i in 6" :key="i"></div>
-                </div>
-                <div class="bl-content">
-                  <div class="header"></div>
-                  <div class="row1">
-                    <div v-for="i in 2" :key="i"></div>
-                  </div>
-                  <div class="row2"></div>
-                </div>
-              </div>
-              <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
-            </div>
-            <div class="item">
-              <div
-                class="box bt"
-                :class="{ 'is-active': isTopMenu }"
-                @click="setMenuType(MenuTypeEnum.TOP)"
-              >
-                <div class="bt-menu">
-                  <div class="line" v-for="i in 6" :key="i"></div>
-                </div>
-                <div class="bl-content">
-                  <div class="row1">
-                    <div v-for="i in 2" :key="i"></div>
-                  </div>
-                  <div class="row2"></div>
-                </div>
-              </div>
-              <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <p class="title" style="margin-top: 30px">{{ $t('setting.color.title') }}</p>
       <div class="main-color-wrap">
         <div class="offset">
@@ -146,15 +172,15 @@
         <div v-if="false">{{ boxBorderMode }}</div>
         <div
           class="button"
-          :class="{ 'is-active': !boxBorderMode }"
-          @click="switchBoxMode(false, 'shadow-mode')"
+          :class="{ 'is-active': boxBorderMode }"
+          @click="switchBoxMode(false, 'border-mode')"
         >
           {{ $t('setting.box.list[0]') }}
         </div>
         <div
           class="button"
-          :class="{ 'is-active': boxBorderMode }"
-          @click="switchBoxMode(false, 'border-mode')"
+          :class="{ 'is-active': !boxBorderMode }"
+          @click="switchBoxMode(false, 'shadow-mode')"
         >
           {{ $t('setting.box.list[1]') }}
         </div>
@@ -198,8 +224,25 @@
           <span>{{ $t('setting.basics.list[8]') }}</span>
           <el-switch v-model="autoClose" @change="setAutoClose" />
         </div>
-        <div class="item" style="display: flex">
+        <div class="item">
           <span>{{ $t('setting.basics.list[9]') }}</span>
+          <el-switch v-model="watermarkVisible" @change="setWatermarkVisible" />
+        </div>
+        <div class="item" style="display: flex">
+          <span>{{ $t('setting.basics.list[10]') }}</span>
+          <el-input-number
+            :min="180"
+            :max="320"
+            size="default"
+            :step="10"
+            style="width: 120px"
+            v-model="menuOpenWidth"
+            controls-position="right"
+            @change="setMenuOpenSize"
+          />
+        </div>
+        <div class="item" style="display: flex">
+          <span>{{ $t('setting.basics.list[11]') }}</span>
           <el-select
             v-model="pageTransition"
             placeholder="Select"
@@ -215,6 +258,23 @@
             />
           </el-select>
         </div>
+        <div class="item" style="display: flex">
+          <span>{{ $t('setting.basics.list[12]') }}</span>
+          <el-select
+            v-model="customRadius"
+            placeholder="Select"
+            size="default"
+            style="width: 120px"
+            @change="setCustomRadius"
+          >
+            <el-option
+              v-for="item in customRadiusOps"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
       </div>
     </div>
   </el-drawer>
@@ -222,11 +282,13 @@
 
 <script setup lang="ts">
   import { useSettingStore } from '@/store/modules/setting'
-  import { SettingThemeList, ThemeList, SystemMainColor, SystemThemeStyles } from '@/config/setting'
+  import { SettingThemeList, ThemeList, SystemMainColor } from '@/config/setting'
   import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
-  import { getDarkColor, getLightColor } from '@/utils/color'
-  import { SystemThemeTypes } from '@/types/store'
   import mittBus from '@/utils/mittBus'
+  import { useTheme } from '@/composables/useTheme'
+  const { setSystemTheme, setSystemAutoTheme, switchTheme } = useTheme()
+
+  // 删除原来的相关方法定义，直接使用从useTheme中导入的方法
 
   const store = useSettingStore()
 
@@ -240,7 +302,7 @@
   const minWidth = 1000
 
   // 观察窗口大小的变化以更新菜单类型
-  watch(width, (newWidth) => {
+  watch(width, (newWidth: number) => {
     const newMenuType = newWidth < minWidth ? MenuTypeEnum.LEFT : MenuTypeEnum.TOP
     if (isTopMenu.value) {
       isTopMenuActive.value = true
@@ -254,7 +316,7 @@
 
   watch(
     () => props.open,
-    (val) => (showDrawer.value = val)
+    (val: boolean) => (showDrawer.value = val)
   )
 
   const settingThemeList = SettingThemeList
@@ -266,8 +328,12 @@
   const systemThemeColor = computed(() => store.systemThemeColor)
   const boxBorderMode = computed(() => store.boxBorderMode)
   const pageTransition = computed(() => store.pageTransition)
+  const customRadius = computed(() => store.customRadius)
   const isLeftMenu = computed(() => store.menuType === MenuTypeEnum.LEFT)
   const isTopMenu = computed(() => store.menuType === MenuTypeEnum.TOP)
+  const isTopLeftMenu = computed(() => store.menuType === MenuTypeEnum.TOP_LEFT)
+  const watermarkVisible = computed(() => store.watermarkVisible)
+  const menuOpenWidth = ref(store.menuOpenWidth)
   const uniqueOpened = ref(true)
   const showMenuButton = ref(true)
   const autoClose = ref(true)
@@ -301,9 +367,32 @@
     }
   ]
 
+  const customRadiusOps = [
+    {
+      value: '0',
+      label: '0'
+    },
+    {
+      value: '0.25',
+      label: '0.25'
+    },
+    {
+      value: '0.5',
+      label: '0.5'
+    },
+    {
+      value: '0.75',
+      label: '0.75'
+    },
+    {
+      value: '1',
+      label: '1'
+    }
+  ]
+
   watch(
     () => store.showWorkTab,
-    (e) => {
+    (e: boolean) => {
       showWorkTab.value = e
     }
   )
@@ -354,67 +443,14 @@
     }
   }
 
-  // 主题跟随系统
-  const setSystemAutoTheme = () => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setSystemTheme(SystemThemeEnum.DARK, SystemThemeEnum.AUTO)
-    } else {
-      setSystemTheme(SystemThemeEnum.LIGHT, SystemThemeEnum.AUTO)
-    }
-  }
-
   const setMenuType = (type: MenuTypeEnum) => {
     if (type === MenuTypeEnum.LEFT) store.setMenuOpen(true)
     store.setMenuType(type)
     isAutoClose()
   }
 
-  // 切换系统主题
-  const switchTheme = (theme: SystemThemeEnum) => {
-    if (theme === SystemThemeEnum.AUTO) {
-      setSystemAutoTheme()
-    } else {
-      setSystemTheme(theme)
-    }
-  }
-
-  // 设置系统主题
-  const setSystemTheme = (theme: SystemThemeEnum, themeMode?: SystemThemeEnum) => {
-    let el = document.getElementsByTagName('html')[0]
-    let isDark = theme === SystemThemeEnum.DARK
-
-    if (!themeMode) {
-      themeMode = theme
-    }
-
-    const currentTheme = SystemThemeStyles[theme as keyof SystemThemeTypes]
-
-    if (currentTheme) {
-      el.setAttribute('class', currentTheme.className)
-    }
-
-    // 设置按钮颜色加深或变浅
-    let primary = systemThemeColor.value
-
-    for (let i = 1; i <= 9; i++) {
-      document.documentElement.style.setProperty(
-        `--el-color-primary-light-${i}`,
-        isDark ? `${getDarkColor(primary, i / 10)}` : `${getLightColor(primary, i / 10)}`
-      )
-    }
-
-    setSystemThemeModel(theme, themeMode)
-    isAutoClose()
-  }
-
   const showWorkTabFunc = () => {
     store.setWorkTab(!store.showWorkTab)
-    isAutoClose()
-  }
-
-  // 系统主题变量存储到 vuex 里面
-  const setSystemThemeModel = (theme: SystemThemeEnum, themeMode: SystemThemeEnum) => {
-    store.setGlopTheme(theme, themeMode)
     isAutoClose()
   }
 
@@ -472,6 +508,11 @@
     isAutoClose()
   }
 
+  const setCustomRadius = (radius: string) => {
+    store.setCustomRadius(radius)
+    isAutoClose()
+  }
+
   const setUniqueOpened = () => {
     store['setUniqueOpened']()
     isAutoClose()
@@ -526,6 +567,18 @@
     isAutoClose()
   }
 
+  const setWatermarkVisible = () => {
+    store.setWatermarkVisible(!watermarkVisible.value)
+    isAutoClose()
+  }
+
+  const setMenuOpenSize = () => {
+    if (menuOpenWidth.value) {
+      store.setMenuOpenWidth(menuOpenWidth.value)
+      isAutoClose()
+    }
+  }
+
   const initColorWeak = () => {
     if (colorWeak.value) {
       let el = document.getElementsByTagName('html')[0]
@@ -534,6 +587,13 @@
       }, 100)
     }
   }
+
+  watch(
+    () => store.menuOpenWidth,
+    (newVal) => {
+      menuOpenWidth.value = newVal
+    }
+  )
 </script>
 
 <style lang="scss">
@@ -564,5 +624,5 @@
 </style>
 
 <style lang="scss" scoped>
-  @import './style';
+  @use './style';
 </style>

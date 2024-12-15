@@ -1,3 +1,5 @@
+@use '@styles/variables.scss' as *;
+
 .worktab {
   box-sizing: border-box;
   display: flex;
@@ -25,12 +27,12 @@
         margin-right: 6px;
         font-size: 13px;
         line-height: 30px;
-        color: #6E7380;
+        color: #6e7380;
         text-align: center;
         cursor: pointer;
         background: var(--art-main-bg-color);
         border: 1px solid transparent;
-        border-radius: 6px;
+        border-radius: calc(var(--custom-radius) / 2.5 + 2px) !important;
         transition: color 0.1s;
 
         &:hover {
@@ -65,6 +67,7 @@
     .btn {
       position: relative;
       top: 0;
+      box-sizing: border-box;
       width: 32px;
       height: 32px;
       font-size: 16px;
@@ -73,7 +76,6 @@
       cursor: pointer;
       background: var(--art-main-bg-color);
       border-radius: 3px;
-      box-shadow: var(--art-box-shadow);
 
       &:hover ul {
         display: inline;

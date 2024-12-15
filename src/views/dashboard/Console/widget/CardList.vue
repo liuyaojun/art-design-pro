@@ -1,5 +1,5 @@
 <template>
-  <ul class="card" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
+  <ul class="card-list" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
     <li class="console-box-2" v-for="(item, index) in dataList" :key="index">
       <span class="des custom-text subtitle">{{ item.des }}</span>
       <div>
@@ -16,9 +16,11 @@
           {{ item.change }}
         </span>
       </div>
-      <i class="iconfont custom-text" :style="{ backgroundImage: `${item.color} !important` }">{{
-        item.icon
-      }}</i>
+      <i
+        class="iconfont-sys custom-text"
+        :style="{ backgroundImage: `${item.color} !important` }"
+        >{{ item.icon }}</i
+      >
     </li>
   </ul>
 </template>
@@ -35,7 +37,7 @@
   const dataList = reactive([
     {
       des: '总访问次数',
-      icon: '\ue765',
+      icon: '\ue721',
       startVal: 0,
       duration: 1000,
       num: 9120,
@@ -44,7 +46,7 @@
     },
     {
       des: '在线访客数',
-      icon: '\ue682',
+      icon: '\ue724',
       startVal: 0,
       duration: 1000,
       num: 182,
@@ -53,7 +55,7 @@
     },
     {
       des: '点击量',
-      icon: '\ue672',
+      icon: '\ue7aa',
       startVal: 0,
       duration: 1000,
       num: 9520,
@@ -62,7 +64,7 @@
     },
     {
       des: '新用户',
-      icon: '\ue686',
+      icon: '\ue82a',
       startVal: 0,
       duration: 1000,
       num: 156,
@@ -73,11 +75,12 @@
 </script>
 
 <style lang="scss" scoped>
-  .card {
+  .card-list {
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     width: calc(100% + var(--console-margin));
+    margin-top: 0 !important;
     margin-left: calc(0px - var(--console-margin));
     background-color: transparent !important;
 
@@ -89,11 +92,10 @@
       padding: 0 18px;
       margin: 0 0 0 var(--console-margin);
       background: var(--art-main-bg-color);
-      border-radius: 14px;
 
       $icon-size: 46px;
 
-      .iconfont {
+      .iconfont-sys {
         position: absolute;
         top: 0;
         right: 15px;

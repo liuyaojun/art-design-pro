@@ -74,13 +74,11 @@
           </template>
         </el-table-column>
         <el-table-column label="创建日期" prop="create_time" sortable v-if="columns[5].show" />
-        <el-table-column fixed="right" label="操作" width="180px">
-          <el-button link :icon="EditPen" type="primary" @click="showDialog('edit')">
-            编辑
-          </el-button>
-          <el-button link :icon="Delete" style="color: #fa6962" @click="deleteUser">
-            注销
-          </el-button>
+        <el-table-column fixed="right" label="操作" width="150px">
+          <template #default="scope">
+            <button-table type="edit" @click="showDialog('edit', scope.row)" />
+            <button-table type="delete" @click="deleteUser" />
+          </template>
         </el-table-column>
       </template>
     </art-table>
@@ -90,7 +88,7 @@
       :title="dialogType === 'add' ? '添加用户' : '编辑用户'"
       width="30%"
     >
-      <el-form :model="formData" label-width="60px">
+      <el-form ref="formRef" :model="formData" :rules="rules" label-width="80px">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="formData.username" />
         </el-form-item>
@@ -99,8 +97,8 @@
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-select v-model="formData.sex">
-            <el-option label="男" :value="1" />
-            <el-option label="女" :value="2" />
+            <el-option label="男" value="男" />
+            <el-option label="女" value="女" />
           </el-select>
         </el-form-item>
         <el-form-item label="部门" prop="dep">
@@ -114,7 +112,7 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">提交</el-button>
+          <el-button type="primary" @click="handleSubmit">提交</el-button>
         </div>
       </template>
     </el-dialog>
@@ -123,9 +121,9 @@
 
 <script setup lang="ts">
   import { ACCOUNT_TABLE_DATA } from '@/mock/formData'
-  import { EditPen, Delete } from '@element-plus/icons-vue'
   import { FormInstance } from 'element-plus'
   import { ElMessageBox, ElMessage } from 'element-plus'
+  import type { FormRules } from 'element-plus'
 
   const dialogType = ref('add')
   const dialogVisible = ref(false)
@@ -139,11 +137,11 @@
 
   const sexOptions = [
     {
-      value: '1',
+      value: '男',
       label: '男'
     },
     {
-      value: '2',
+      value: '女',
       label: '女'
     }
   ]
@@ -185,9 +183,21 @@
 
   const tableData = ACCOUNT_TABLE_DATA
 
-  const showDialog = (type: string) => {
+  const showDialog = (type: string, row?: any) => {
     dialogVisible.value = true
     dialogType.value = type
+
+    if (type === 'edit' && row) {
+      formData.username = row.username
+      formData.phone = row.mobile
+      formData.sex = row.sex === 1 ? '男' : '女'
+      formData.dep = row.dep
+    } else {
+      formData.username = ''
+      formData.phone = ''
+      formData.sex = '男'
+      formData.dep = ''
+    }
   }
 
   const deleteUser = () => {
@@ -237,6 +247,32 @@
       text = '注销'
     }
     return text
+  }
+
+  const rules = reactive<FormRules>({
+    username: [
+      { required: true, message: '请输入用户名', trigger: 'blur' },
+      { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
+    ],
+    phone: [
+      { required: true, message: '请输入手机号', trigger: 'blur' },
+      { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号格式', trigger: 'blur' }
+    ],
+    sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
+    dep: [{ required: true, message: '请选择部门', trigger: 'change' }]
+  })
+
+  const formRef = ref<FormInstance>()
+
+  const handleSubmit = async () => {
+    if (!formRef.value) return
+
+    await formRef.value.validate((valid) => {
+      if (valid) {
+        ElMessage.success(dialogType.value === 'add' ? '添加成功' : '更新成功')
+        dialogVisible.value = false
+      }
+    })
   }
 </script>
 

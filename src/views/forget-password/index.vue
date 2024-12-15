@@ -1,29 +1,26 @@
 <template>
   <div class="login register">
     <div class="left-wrap">
-      <div class="logo">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-zhaopian-copy"></use>
-        </svg>
-        <h1 class="title">{{ systemName }}</h1>
-      </div>
-      <img class="left-bg" src="@imgs/login/lf_bg.png" />
-      <img class="left-img" src="@imgs/login/lf_icon.svg" />
+      <left-view></left-view>
     </div>
     <div class="right-wrap">
       <div class="header">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-zhaopian-copy"></use>
+          <use xlink:href="#iconsys-zhaopian-copy"></use>
         </svg>
         <h1>{{ systemName }}</h1>
       </div>
       <div class="login-wrap">
         <div class="form">
-          <h3 class="title">忘记密码？</h3>
-          <p class="sub-title">输入您的电子邮件来重置您的密码</p>
+          <h3 class="title">{{ $t('forgetPassword.title') }}</h3>
+          <p class="sub-title">{{ $t('forgetPassword.subTitle') }}</p>
           <div class="input-wrap">
             <span class="input-label" v-if="showInputLabel">账号</span>
-            <el-input placeholder="请输入电子邮件" size="large" v-model.trim="username" />
+            <el-input
+              :placeholder="$t('forgetPassword.placeholder')"
+              size="large"
+              v-model.trim="username"
+            />
           </div>
 
           <div style="margin-top: 15px">
@@ -34,12 +31,14 @@
               @click="register"
               :loading="loading"
             >
-              提交
+              {{ $t('forgetPassword.submitBtnText') }}
             </el-button>
           </div>
 
           <div style="margin-top: 15px">
-            <el-button style="width: 100%" size="large" plain @click="toLogin"> 返回 </el-button>
+            <el-button style="width: 100%" size="large" plain @click="toLogin">
+              {{ $t('forgetPassword.backBtnText') }}
+            </el-button>
           </div>
         </div>
       </div>
@@ -49,7 +48,7 @@
 
 <script setup lang="ts">
   import { SystemInfo } from '@/config/setting'
-
+  import LeftView from '@/components/Pages/Login/LeftView.vue'
   const router = useRouter()
   const showInputLabel = ref(false)
 
@@ -65,5 +64,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../login/index';
+  @use '../login/index';
 </style>

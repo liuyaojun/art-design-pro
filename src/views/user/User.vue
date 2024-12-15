@@ -3,26 +3,31 @@
     <div class="content">
       <div class="left-wrap">
         <div class="user-wrap box-style">
-          <img class="bg" src="https://www.qiniu.lingchen.kim/any_design_pro_user_bg.png" />
+          <img class="bg" src="@imgs/user/bg.png" />
           <img class="avatar" src="@imgs/user/avatar.png" />
           <h2 class="name">{{ userInfo.username }}</h2>
           <p class="des">{{ userInfo.introduce || '这家伙很懒~' }}</p>
 
           <div class="outer-info">
             <div>
+<<<<<<< HEAD
               <i class="iconfont">&#xe806;</i>
               <span>{{ userInfo.email }}</span>
+=======
+              <i class="iconfont-sys">&#xe72e;</i>
+              <span>576123721@mall.com</span>
+>>>>>>> 7e44bc87fead3d7d9e9d4fea5d1ebb0cd7c6f772
             </div>
             <div>
-              <i class="iconfont">&#xe7fd;</i>
+              <i class="iconfont-sys">&#xe608;</i>
               <span>交互专家</span>
             </div>
             <div>
-              <i class="iconfont">&#xe63f;</i>
+              <i class="iconfont-sys">&#xe736;</i>
               <span>广东省深圳市</span>
             </div>
             <div>
-              <i class="iconfont">&#xe7d9;</i>
+              <i class="iconfont-sys">&#xe811;</i>
               <span>字节跳动－某某平台部－UED</span>
             </div>
           </div>

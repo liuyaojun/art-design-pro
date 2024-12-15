@@ -16,28 +16,28 @@
     <div class="bottom-wrap console-box">
       <div>
         <h2 class="custom-text box-title">关于项目</h2>
-        <p>{{ systemName }} 是一套企业级的高颜值、高性能、高体验的通用型后台前端解决方案</p>
+        <p>{{ systemName }} 是一款专注于用户体验和视觉设计的后台管理系统模版</p>
         <p>使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
 
         <div class="button-wrap">
           <div class="btn" @click="goPage('https://www.lingchen.kim/art-design-pro/docs/')">
             <span>项目官网</span>
-            <i class="iconfont">&#xe7e7;</i>
+            <i class="iconfont-sys">&#xe703;</i>
           </div>
           <div
             class="btn"
             @click="goPage('https://www.lingchen.kim/art-design-pro/docs/guide/introduce.html')"
           >
             <span>文档</span>
-            <i class="iconfont">&#xe7e7;</i>
+            <i class="iconfont-sys">&#xe703;</i>
           </div>
           <div class="btn" @click="goPage('https://github.com/Daymychen')">
             <span>Github</span>
-            <i class="iconfont">&#xe7e7;</i>
+            <i class="iconfont-sys">&#xe703;</i>
           </div>
           <div class="btn" @click="goPage('https://www.lingchen.kim')">
             <span>博客</span>
-            <i class="iconfont">&#xe7e7;</i>
+            <i class="iconfont-sys">&#xe703;</i>
           </div>
         </div>
       </div>
@@ -112,10 +112,12 @@
       color: var(--art-gray-600) !important;
     }
 
+    :deep(.card-list li),
     .region,
-    .dynamic {
+    .dynamic,
+    .bottom-wrap {
       background: var(--art-main-bg-color);
-      border-radius: 16px;
+      border-radius: calc(var(--custom-radius) + 4px) !important;
     }
 
     .column {
@@ -133,7 +135,6 @@
       padding: 20px;
       margin-top: var(--console-margin);
       background: var(--art-main-bg-color);
-      border-radius: 12px;
 
       h2 {
         margin-top: 10px;
@@ -167,7 +168,7 @@
           cursor: pointer;
           background: var(--art-bg-color);
           border: 1px solid rgba(var(--art-gray-300-rgb), 0.9) !important;
-          border-radius: 5px;
+          border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
           transition: all 0.3s;
 
           &:hover {
@@ -238,7 +239,7 @@
     }
 
     @media screen and (max-width: $device-ipad-vertical) {
-      :deep(.card) {
+      :deep(.card-list) {
         width: calc(100% + 15px);
         margin-left: -15px;
 
@@ -304,7 +305,7 @@
     }
 
     @media screen and (max-width: $device-phone) {
-      :deep(.card) {
+      :deep(.card-list) {
         width: 100%;
         margin: 0;
 

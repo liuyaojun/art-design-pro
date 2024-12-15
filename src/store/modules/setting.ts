@@ -5,8 +5,12 @@ import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
 import { colourBlend, handleElementThemeColor } from '@/utils/utils'
 import { getSysStorage } from '@/utils/storage'
 
+const DEFAULT_MENU_WIDTH = 252 // 菜单展开宽度默认值
+const DEFAULT_CUSTOM_RADIUS = '0.5' // 圆角默认值
+
 export interface SettingState {
   menuType: MenuTypeEnum // 菜单类型
+  menuOpenWidth: number // 菜单展开宽度
   systemThemeType: SystemThemeEnum // 全局主题类型 light dark
   systemThemeMode: SystemThemeEnum // 全局主题模式 light dark auto
   menuThemeType: MenuThemeEnum // 菜单主题类型
@@ -25,30 +29,35 @@ export interface SettingState {
   pageTransition: string // 页面切换动画
   menuOpen: boolean // 菜单是否展开
   refresh: boolean
+  watermarkVisible: boolean // 水印是否显示
+  customRadius: string // 自定义圆角
 }
 
 export const useSettingStore = defineStore({
   id: 'settingStore',
   state: (): SettingState => ({
     menuType: MenuTypeEnum.LEFT,
+    menuOpenWidth: DEFAULT_MENU_WIDTH,
     systemThemeType: SystemThemeEnum.LIGHT,
     systemThemeMode: SystemThemeEnum.LIGHT,
     menuThemeType: MenuThemeEnum.DESIGN,
-    boxBorderMode: false,
+    boxBorderMode: true,
     uniqueOpened: true,
     systemThemeColor: ElementPlusTheme.primary,
     showMenuButton: true,
     showRefreshButton: true,
     showCrumbs: true,
     autoClose: false,
-    showWorkTab: false,
+    showWorkTab: true,
     showLanguage: true,
     showNprogress: true,
     colorWeak: false,
     showSettingGuide: true,
     pageTransition: 'slide-right',
     menuOpen: true,
-    refresh: false
+    refresh: false,
+    watermarkVisible: false,
+    customRadius: DEFAULT_CUSTOM_RADIUS
   }),
   getters: {
     getMenuTheme(): MenuThemeType {
@@ -62,6 +71,14 @@ export const useSettingStore = defineStore({
     // 是否为暗黑模式
     isDark(): boolean {
       return this.systemThemeType === SystemThemeEnum.DARK
+    },
+    // 获取菜单展开宽度
+    getMenuOpenWidth(): string {
+      return this.menuOpenWidth + 'px' || DEFAULT_MENU_WIDTH + 'px'
+    },
+    // 获取自定义圆角
+    getCustomRadius(): string {
+      return this.customRadius + 'rem' || DEFAULT_CUSTOM_RADIUS + 'rem'
     }
   },
   actions: {
@@ -73,6 +90,7 @@ export const useSettingStore = defineStore({
         sys = JSON.parse(sys)
         const { setting } = sys.user
         this.menuType = setting.menuType || MenuTypeEnum.LEFT
+        this.menuOpenWidth = Number(setting.menuOpenWidth) || DEFAULT_MENU_WIDTH
         this.systemThemeType = setting.systemThemeType || SystemThemeEnum.LIGHT
         this.systemThemeMode = setting.systemThemeMode || SystemThemeEnum.LIGHT
         this.menuThemeType = setting.menuThemeType || MenuThemeEnum.DESIGN
@@ -90,14 +108,20 @@ export const useSettingStore = defineStore({
         this.showSettingGuide = setting.showSettingGuide
         this.pageTransition = setting.pageTransition
         this.menuOpen = setting.menuOpen
-
+        this.watermarkVisible = setting.watermarkVisible
+        this.customRadius = setting.customRadius || DEFAULT_CUSTOM_RADIUS
+        this.setCustomRadius(this.customRadius)
         setElementThemeColor(setting.systemThemeColor)
       } else {
+        this.setCustomRadius(this.customRadius)
         setElementThemeColor(ElementPlusTheme.primary)
       }
     },
     setMenuType(type: MenuTypeEnum) {
       this.menuType = type
+    },
+    setMenuOpenWidth(width: number) {
+      this.menuOpenWidth = width
     },
     setGlopTheme(theme: SystemThemeEnum, themeMode: SystemThemeEnum) {
       this.systemThemeType = theme
@@ -170,6 +194,15 @@ export const useSettingStore = defineStore({
     // 刷新当前页
     reload() {
       this.refresh = !this.refresh
+    },
+    // 设置水印是否显示
+    setWatermarkVisible(visible: boolean) {
+      this.watermarkVisible = visible
+    },
+    // 设置自定义圆角
+    setCustomRadius(radius: string) {
+      this.customRadius = radius
+      document.documentElement.style.setProperty('--custom-radius', `${radius}rem`)
     }
   }
 })
